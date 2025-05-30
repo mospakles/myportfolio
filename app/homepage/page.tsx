@@ -223,7 +223,6 @@ const Homepage = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   // New animation-related states
