@@ -250,7 +250,6 @@ const Homepage = () => {
   const y2 = useTransform(scrollY, [0, 500], [0, -50]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-
   // Handle scroll to determine active section
   useEffect(() => {
     const handleScroll = () => {
@@ -527,7 +526,10 @@ const Homepage = () => {
                     whileHover={{ scale: 1.03, x: 5 }}
                   >
                     <button
-                      onClick={() => scrollToSection(item)}
+                      onClick={() => {
+                        scrollToSection(item);
+                        setIsMenuOpen(false);
+                      }}
                       className={`w-full text-left py-2 px-4 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
                         activeSection === item
                           ? "text-indigo-600 dark:text-indigo-400 font-medium"
@@ -825,7 +827,7 @@ const Homepage = () => {
               <span>Email</span>
             </motion.a>
             <motion.a
-              href="tel:+2348147441749"
+              href="https://api.whatsapp.com/send?phone=2348147441749"
               className="flex items-center space-x-2 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-300"
               whileHover={{ scale: 1.1, y: -3 }}
             >
@@ -1265,14 +1267,6 @@ const Homepage = () => {
                         >
                           Live Demo
                         </a>
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="px-3 py-1 bg-gray-800 rounded-md text-sm hover:bg-gray-900 transition-colors duration-300 flex items-center gap-1"
-                        >
-                          <FaGithub size={14} /> Code
-                        </a>
                       </div>
                     </div>
                   </div>
@@ -1296,26 +1290,6 @@ const Homepage = () => {
                     ))}
                   </div>
 
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    className="text-indigo-600 dark:text-indigo-400 text-sm hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors duration-300 flex items-center gap-1 font-medium"
-                  >
-                    View Details
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
                 </div>
               </motion.div>
             ))}
@@ -1567,7 +1541,7 @@ const Homepage = () => {
                         Phone
                       </h5>
                       <a
-                        href="tel:+2348147441749"
+                        href="https://api.whatsapp.com/send?phone=2348147441749"
                         className="text-indigo-600 dark:text-indigo-400 hover:underline"
                       >
                         +2348147441749
@@ -1711,14 +1685,6 @@ const Homepage = () => {
                 </li>
                 <li>
                   <a
-                    href="#blog"
-                    className="text-gray-400 hover:text-white transition-colors duration-300"
-                  >
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="#contact"
                     className="text-gray-400 hover:text-white transition-colors duration-300"
                   >
@@ -1743,7 +1709,7 @@ const Homepage = () => {
                 <li className="flex items-start space-x-2">
                   <FaPhone className="mt-1 text-indigo-400" size={16} />
                   <a
-                    href="tel:+2348147441749"
+                    href="https://api.whatsapp.com/send?phone=2348147441749"
                     className="text-gray-400 hover:text-white transition-colors duration-300"
                   >
                     +2348147441749
@@ -1776,90 +1742,6 @@ const Homepage = () => {
           </div>
         </div>
       </footer>
-
-      {/* Project Details Modal */}
-      {selectedProject && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-          onClick={() => setSelectedProject(null)}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-white dark:bg-gray-900 rounded-lg max-w-4xl w-full max-h-[80vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative">
-              <div className="aspect-w-16 aspect-h-9 w-full bg-gray-200 dark:bg-gray-800">
-                <div
-                  className={`w-full h-full bg-[url('/images/projects/${selectedProject.image}')] bg-cover bg-center`}
-                ></div>
-              </div>
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors duration-300"
-              >
-                <FaTimes size={18} />
-              </button>
-            </div>
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-2 dark:text-white">
-                {selectedProject.title}
-              </h3>
-
-              <div className="flex flex-wrap gap-2 mb-4">
-                {selectedProject.technologies.map((tech, idx) => (
-                  <span
-                    key={idx}
-                    className="text-xs font-medium bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 px-2 py-1 rounded"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                {selectedProject.description || selectedProject.description}
-              </p>
-
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold dark:text-white">
-                  Key Features
-                </h4>
-                <ul className="list-disc list-inside text-gray-600 dark:text-gray-300 space-y-2">
-                  {selectedProject.technologies &&
-                    selectedProject.technologies.map((tech, idx) => (
-                      <li key={idx}>{tech}</li>
-                    ))}
-                </ul>
-              </div>
-
-              <div className="flex gap-4 mt-8">
-                <a
-                  href={selectedProject.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800 text-white rounded-md font-medium shadow-md transition-all duration-300"
-                >
-                  View Live Demo
-                </a>
-                <a
-                  href={selectedProject.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-transparent border border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-800 rounded-md font-medium transition-colors duration-300 flex items-center gap-2"
-                >
-                  <FaGithub size={18} /> View Source Code
-                </a>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
 
       {/* Scroll to top button */}
       <AnimatePresence>

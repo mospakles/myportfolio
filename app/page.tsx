@@ -54,8 +54,8 @@ export const metadata: Metadata = {
 };
 export default function Home() {
   return (
-    <div className="">
+    <>
       <Homepage />
-    </div>
+    </>
   );
 }
