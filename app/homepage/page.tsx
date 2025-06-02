@@ -12,7 +12,6 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   FormData,
   FormErrors,
-  Project,
   Skill,
   SubmitStatus,
 } from "../data/interface";
@@ -222,7 +221,6 @@ const Homepage = () => {
 
   const [activeSection, setActiveSection] = useState("home");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   // New animation-related states
